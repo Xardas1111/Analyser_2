@@ -8,19 +8,19 @@ namespace Аналізатор
 {
     public partial class Parser
     {
-        public bool IsOp() 
+        public bool IsOp()
         {
             if (IsPrint() || IsScan() || IsIf() || IsWhile() || IsAssign() || IsDefined())
             {
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
         }
 
-        public bool IsOpList() 
+        public bool IsOpList()
         {
             if (IsOp())
             {
@@ -41,7 +41,7 @@ namespace Аналізатор
                     throw new ApplicationException("Needs to start from a new line in line " + GetLexem().LineNumber);
                 }
             }
-            else 
+            else
             {
                 if (IsDefined())
                 {
@@ -62,7 +62,7 @@ namespace Аналізатор
                         throw new ApplicationException("Needs to start from a new line in line " + GetLexem().LineNumber);
                     }
                 }
-                else 
+                else
                 {
                     if ((GetLexem().Code != 23) && (ifcounter > 0))
                     {
@@ -77,7 +77,7 @@ namespace Аналізатор
             }
         }
 
-        public bool IsProgram() 
+        public bool IsProgram()
         {
             if (GetLexem().Code == 22)
             {
@@ -89,7 +89,7 @@ namespace Аналізатор
                     {
                         if (GetLexem().Code == 23)
                         {
-                            if (lexemcount < lexemlist.Count-1)
+                            if (lexemcount < lexemlist.Count - 1)
                             {
                                 throw new ApplicationException("Something after closing brackets after line " + GetLexem().LineNumber);
                             }
@@ -113,7 +113,7 @@ namespace Аналізатор
                     throw new ApplicationException("Needs to start from a new line in line " + GetLexem().LineNumber);
                 }
             }
-            else 
+            else
             {
                 throw new ApplicationException("Wrong beginning of program in line " + GetLexem().LineNumber);
             }

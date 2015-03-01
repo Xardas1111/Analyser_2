@@ -1,1 +1,12 @@
 C:\Users\студент\Documents\Visual Studio 2012\Projects\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe.config
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe.config
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.pdb
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csprojResolveAssemblyReference.cache
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.Form1.resources
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.Properties.Resources.resources
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csproj.GenerateResource.Cache
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.exe
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.GramaticForm.resources
+D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.RelationshipTableForm.resources

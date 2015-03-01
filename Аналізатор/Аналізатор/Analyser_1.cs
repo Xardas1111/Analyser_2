@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace Аналізатор
 {
-    public struct Lexem
+    public class Lexem
     {
         public int Number;
         public int LineNumber;
         public string LexName;
         public int Code;
         public int IdCode;
+        public Lexem() 
+        { 
+            
+        }
         public Lexem(int Number, int LineNumber, string LexName, int Code, int IdCode)
         {
             this.Number = Number;

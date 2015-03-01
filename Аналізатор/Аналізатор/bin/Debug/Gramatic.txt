@@ -1,0 +1,52 @@
+< program > ::= { ¶ < operlist2 > } 
+< operlist1 > ::= < operlist > 
+< operlist2 > ::= < operlist > 
+< operlist > ::= < oper > ¶ 
+< operlist > ::= < oper > ¶ < operlist1 > 
+< operlist > ::= < ohol > ¶ 
+< operlist > ::= < ohol > ¶ < operlist1 > 
+< ohol > ::= < type > < idlist > 
+< idlist > ::= id 
+< idlist1 > ::= < idlist > 
+< idlist > ::= id , < idlist > 
+< type > ::= int 
+< type > ::= real 
+< oper > ::= < prysv > 
+< oper > ::= < printt > 
+< oper > ::= < scann > 
+< oper > ::= < cycle > 
+< oper > ::= < if > 
+< prysv > ::= id = < arith_vyr > 
+< printt > ::= print ( < arith_vyr1 > ) 
+< scann > ::= scan ( ) 
+< scann > ::= scan ( < idlist1 > ) 
+< cycle > ::= do ¶ < operlist2 > while < log_vyr > 
+< operlist2 > ::= < operlist > 
+< if > ::= if < log_vyr1 > ¶ { ¶ < operlist2 > } 
+< log_vyr1 > ::= < log_vyr > 
+< log_vyr > ::= < log_dod1 > OR < log_vyr > 
+< log_dod1 > ::= < log_dod > 
+< log_vyr > ::= < log_dod > 
+< log_dod > ::= < log_mnosh1 > AND < log_dod > 
+< log_mnosh1 > ::= < log_mnosh > 
+< log_dod > ::= < log_mnosh > 
+< log_mnosh > ::= < arith_vyr1 > < log_sign > < arith_vyr > 
+< log_mnosh > ::= NOT < log_mnosh > 
+< log_mnosh > ::= [ < log_dod1 > ] 
+< arith_vyr1 > ::= < arith_vyr > 
+< log_sign > ::= < 
+< log_sign > ::= > 
+< log_sign > ::= == 
+< log_sign > ::= >= 
+< log_sign > ::= <= 
+< log_sign > ::= <> 
+< arith_vyr > ::= < dod > 
+< arith_vyr > ::= < dod1 > + < arith_vyr > 
+< arith_vyr > ::= < dod1 > - < arith_vyr > 
+< dod1 > ::= < dod > 
+< dod > ::= < mnosh > 
+< dod > ::= < mnosh > * < dod > 
+< dod > ::= < mnosh > / < dod > 
+< mnosh > ::= ( < arith_vyr1 > ) 
+< mnosh > ::= id 
+< mnosh > ::= const 

@@ -187,7 +187,7 @@ namespace Аналізатор
             return false;
         }
 
-        public static bool Parse(string path, out List<Lexem> table) 
+        public static bool Parse(string path, out List<Lexem> table, out Dictionary<int ,Parser2.keeper> States) 
         {
             LexemNumber = 0;
             NumberOfLines = 0;
@@ -289,24 +289,27 @@ namespace Аналізатор
             }
             str.Close();
             table = new List<Lexem>();
+            States = new Dictionary<int, Parser2.keeper>();
             if (key)
             {
+                Dictionary<int, Parser2.keeper> states = new Dictionary<int, Parser2.keeper>() ;
                 table = LexemTable;
                 Parser parser = new Parser(LexemTable);
+                Parser2.Parser parser2 = new Parser2.Parser(LexemTable);
                 try
                 {
-
-                    if (parser.IsProgram())
+                    if (parser2.check(out states))
                     {
+                        States = states;
                         return true;
                     }
                 }
                 catch (ApplicationException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
-            return false ;
+            return false;
         }
     }
 }
