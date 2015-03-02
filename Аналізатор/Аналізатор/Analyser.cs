@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Trance_4;
 
 
 namespace Аналізатор
@@ -187,7 +188,7 @@ namespace Аналізатор
             return false;
         }
 
-        public static bool Parse(string path, out List<Lexem> table, out Dictionary<int ,Parser2.keeper> States) 
+        public static bool Parse(string path, out List<Lexem> table, DataGridView outtable, DataGridView relationshiptable, List<GrammarLine> grammarlist) 
         {
             LexemNumber = 0;
             NumberOfLines = 0;
@@ -284,23 +285,19 @@ namespace Аналізатор
                         continue;
                     }
                 }
-                if (str.Peek() != -1)
-                    LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, "¶", 27, 0));
+                //if (str.Peek() != -1)
+                //    LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, "¶", 27, 0));
             }
             str.Close();
             table = new List<Lexem>();
-            States = new Dictionary<int, Parser2.keeper>();
             if (key)
             {
-                Dictionary<int, Parser2.keeper> states = new Dictionary<int, Parser2.keeper>() ;
                 table = LexemTable;
-                Parser parser = new Parser(LexemTable);
-                Parser2.Parser parser2 = new Parser2.Parser(LexemTable);
+                AscendParser parser = new AscendParser(LexemTable, relationshiptable, outtable, grammarlist);
                 try
                 {
-                    if (parser2.check(out states))
+                    if (parser.Parse())
                     {
-                        States = states;
                         return true;
                     }
                 }

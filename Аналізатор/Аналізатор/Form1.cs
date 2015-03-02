@@ -15,6 +15,8 @@ namespace Аналізатор
     public partial class Form1 : Form
     {
         string path;
+        RelationshipTableForm relForm;
+        GramaticForm gf;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +24,10 @@ namespace Аналізатор
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            relForm = new RelationshipTableForm(RelationshipsTable.GetTable());
+            relForm.Show();
+            gf = new GramaticForm(RelationshipsTable.GetGramatic());
+            gf.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -64,10 +69,11 @@ namespace Аналізатор
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Dictionary<int, Parser2.keeper> states;
+            dataGridView3.Rows.Clear();
+           
             List<Lexem> table = new List<Lexem>();
             File.WriteAllText("Temp.abc", richTextBox1.Text);
-            if (Analyser.Parse("Temp.abc", out table, out states))
+            if (Analyser.Parse("Temp.abc", out table,dataGridView3,relForm.dataGridView1,RelationshipsTable.GetGramarList()))
             {
                 MessageBox.Show("All is correct", "Result", MessageBoxButtons.OK);
             }
@@ -78,19 +84,6 @@ namespace Аналізатор
             }
             File.Delete("Temp.abc");
             dataGridView2.Rows.Clear();
-            for (int i = 1; i <= 34; i++)
-            {
-                if (states.ContainsKey(i))
-                    for (int j = 0; j < states[i].labels.Count; j++)
-                    {
-                        dataGridView2.Rows.Add(i, states[i].labels[j].ToString() == "0" ? "" : states[i].labels[j].ToString(), states[i].nextstate[j], states[i].stack[j]);
-                    }
-            }
-            RelationshipTableForm relForm = new RelationshipTableForm(RelationshipsTable.GetTable());
-            relForm.Show();
-            MessageBox.Show(relForm.dataGridView1[0, 0].Value.ToString());
-            GramaticForm gf = new GramaticForm(RelationshipsTable.GetGramatic());
-            gf.Show();
         }
     }
 }

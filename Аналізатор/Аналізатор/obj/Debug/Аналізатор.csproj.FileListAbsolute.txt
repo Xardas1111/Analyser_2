@@ -10,3 +10,14 @@ D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Deb
 D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
 D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.GramaticForm.resources
 D:\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.RelationshipTableForm.resources
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe.config
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.exe
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.pdb
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csprojResolveAssemblyReference.cache
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.Form1.resources
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.GramaticForm.resources
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.Properties.Resources.resources
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.RelationshipTableForm.resources
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csproj.GenerateResource.Cache
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.pdb

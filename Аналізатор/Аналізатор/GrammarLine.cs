@@ -19,6 +19,14 @@ namespace Trance_4
 
         private List<string> rightTokens;
 
+        public List<string> RightToken 
+        {
+            get 
+            {
+                return rightTokens;
+            }
+        }
+
         public GrammarLine(string _leftTokens, params string[] rightTokens)
         {
             this.leftToken = _leftTokens;
