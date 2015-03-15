@@ -70,12 +70,18 @@ namespace Аналізатор
         private void button4_Click(object sender, EventArgs e)
         {
             dataGridView3.Rows.Clear();
-           
+            List<string> poliz = new List<string>();
             List<Lexem> table = new List<Lexem>();
             File.WriteAllText("Temp.abc", richTextBox1.Text);
-            if (Analyser.Parse("Temp.abc", out table,dataGridView3,relForm.dataGridView1,RelationshipsTable.GetGramarList()))
+            if (Analyser.Parse("Temp.abc", out table, dataGridView3, relForm.dataGridView1, RelationshipsTable.GetGramarList(), ref poliz))
             {
+                string str = "";
+                for (int i = 0; i < poliz.Count; i++)
+                {
+                    str += poliz[i] + " ";
+                }
                 MessageBox.Show("All is correct", "Result", MessageBoxButtons.OK);
+                MessageBox.Show(str+Environment.NewLine+CalculatePoliz(poliz), "Poliz", MessageBoxButtons.OK);
             }
             dataGridView1.Rows.Clear();
             for (int i = 0; i < table.Count; i++)
@@ -84,6 +90,70 @@ namespace Аналізатор
             }
             File.Delete("Temp.abc");
             dataGridView2.Rows.Clear();
+        }
+        private string CalculatePoliz(List<string> poliz)
+        {
+            int a1 = 0, a2 = 0;
+            int i = 0;
+            while (i < poliz.Count)
+            {
+                switch (poliz[i])
+                {
+                    case "+":
+                        a1 = int.Parse(poliz[i - 1]);
+                        a2 = int.Parse(poliz[i - 2]);
+                        a2 += a1;
+                        poliz.RemoveAt(i);
+                        poliz.RemoveAt(i - 1);
+                        poliz.RemoveAt(i - 2);
+                        poliz.Insert(i - 2, a2.ToString());
+                        i--;
+                        break;
+                    case "-":
+                        a1 = int.Parse(poliz[i - 1]);
+                        a2 = int.Parse(poliz[i - 2]);
+                        a2 -= a1;
+                        poliz.RemoveAt(i);
+                        poliz.RemoveAt(i - 1);
+                        poliz.RemoveAt(i - 2);
+                        poliz.Insert(i - 2, a2.ToString());
+                        i--;
+                        break;
+                    case "*":
+                        a1 = int.Parse(poliz[i - 1]);
+                        a2 = int.Parse(poliz[i - 2]);
+                        a2 *= a1;
+                        poliz.RemoveAt(i);
+                        poliz.RemoveAt(i - 1);
+                        poliz.RemoveAt(i - 2);
+                        poliz.Insert(i - 2, a2.ToString());
+                        i--;
+                        break;
+                    case "/":
+                        a1 = int.Parse(poliz[i - 1]);
+                        a2 = int.Parse(poliz[i - 2]);
+                        a2 /= a1;
+                        poliz.RemoveAt(i);
+                        poliz.RemoveAt(i - 1);
+                        poliz.RemoveAt(i - 2);
+                        poliz.Insert(i - 2, a2.ToString());
+                        i--;
+                        break;
+                    default:
+                        if (i == 0)
+                        {
+                            a1 = int.Parse(poliz[i]);
+                        }
+                        else 
+                        {
+                            a2 = a1;
+                            a1 = int.Parse(poliz[i]);
+                        }
+                        i++;
+                        break;
+                }
+            }
+            return poliz[0];
         }
     }
 }

@@ -9,11 +9,13 @@ namespace Аналізатор
     public class AscendParser
     {
         private int count;
+        private List<string> Polizlist;
         private List<Lexem> lexemtable;
         private DataGridView relationshiptable;
         private DataGridView outtable;
         private List<GrammarLine> grammarlist;
         private List<string> stack;
+        private bool isread = false;
 
         public AscendParser()
         {
@@ -26,6 +28,7 @@ namespace Аналізатор
             this.outtable = outtable;
             this.grammarlist = grammarlist;
             this.count = 0;
+            this.Polizlist = new List<string>();
         }
 
         private Lexem TryNextLexem()
@@ -69,6 +72,7 @@ namespace Аналізатор
                     {
                         this.stack.RemoveRange(this.stack.Count - 1 - num, num + 1);
                         this.stack.Add(this.GetGrammar(range));
+                        isread = false ;
                     }
                     else
                         break;
@@ -80,6 +84,7 @@ namespace Аналізатор
 
         private string GetRelation(string lexem1, string lexem2)
         {
+            
             if (lexem1 == "")
                 return "<.";
             if (lexem2 == "")
@@ -110,13 +115,31 @@ namespace Аналізатор
             {
                 if (Enumerable.SequenceEqual<string>((IEnumerable<string>)temp, (IEnumerable<string>)this.grammarlist[index].RightToken))
                 {
+                    if (!isread)
+                    {
+                        switch (index)
+                        {
+                            case 41: Polizlist.Add("+"); break;
+                            case 42: Polizlist.Add("-"); break;
+                            case 45: Polizlist.Add("*"); break;
+                            case 46: Polizlist.Add("/"); break;
+                            case 49: Polizlist.Add(lexemtable[count - 1].LexName); break;
+                        }
+                        
+                    }
                     str = this.grammarlist[index].LeftToken;
                     break;
                 }
             }
+            isread = true;
             if (str == "")
                 throw new ApplicationException("Wrong operator: " + (object)this.lexemtable[this.count].LineNumber);
             return str;
+        }
+
+        public List<string> GetPoliz() 
+        {
+            return Polizlist;
         }
     }
 }

@@ -188,7 +188,7 @@ namespace Аналізатор
             return false;
         }
 
-        public static bool Parse(string path, out List<Lexem> table, DataGridView outtable, DataGridView relationshiptable, List<GrammarLine> grammarlist) 
+        public static bool Parse(string path, out List<Lexem> table, DataGridView outtable, DataGridView relationshiptable, List<GrammarLine> grammarlist,ref List<string> poliz) 
         {
             LexemNumber = 0;
             NumberOfLines = 0;
@@ -298,6 +298,7 @@ namespace Аналізатор
                 {
                     if (parser.Parse())
                     {
+                        poliz = parser.GetPoliz();
                         return true;
                     }
                 }
