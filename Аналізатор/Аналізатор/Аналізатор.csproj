@@ -47,6 +47,7 @@
     <Compile Include="Analyser.cs" />
     <Compile Include="Analyser_1.cs" />
     <Compile Include="AscendParser.cs" />
+    <Compile Include="DijkstraMethod.cs" />
     <Compile Include="GeneratorRelationshipsTable.cs" />
     <Compile Include="GramaticForm.cs">
       <SubType>Form</SubType>
