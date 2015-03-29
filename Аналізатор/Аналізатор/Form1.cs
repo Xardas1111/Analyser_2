@@ -84,6 +84,13 @@ namespace Аналізатор
             }
             File.Delete("Temp.abc");
             dataGridView2.Rows.Clear();
+            foreach(KeyValuePair<int, Parser2.keeper> pair in states)
+            {
+                for (int j = 0; j < pair.Value.labels.Count; j++)
+                {
+                    dataGridView2.Rows.Add(pair.Key, pair.Value.labels[j], pair.Value.nextstate[j], pair.Value.stack[j]);
+                }
+            }
         }
         private string CalculatePoliz(List<string> poliz)
         {
