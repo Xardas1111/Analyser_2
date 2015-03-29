@@ -15,7 +15,7 @@
 < oper > ::= < scann > 
 < oper > ::= < cycle > 
 < oper > ::= < if > 
-< prysv > ::= id = < arith_vyr > 
+< prysv > ::= id = < arith_vyr1 > 
 < printt > ::= print ( < arith_vyr1 > ) 
 < scann > ::= scan ( ) 
 < scann > ::= scan ( < idlist1 > ) 
@@ -28,7 +28,7 @@
 < log_dod > ::= < log_mnosh1 > AND < log_dod > 
 < log_mnosh1 > ::= < log_mnosh > 
 < log_dod > ::= < log_mnosh1 > 
-< log_mnosh > ::= < arith_vyr1 > < log_sign > < arith_vyr > 
+< log_mnosh > ::= < arith_vyr1 > < log_sign > < arith_vyr1 > 
 < log_mnosh > ::= NOT < log_mnosh > 
 < log_mnosh > ::= [ < log_dod1 > ] 
 < arith_vyr1 > ::= < arith_vyr > 
@@ -39,8 +39,8 @@
 < log_sign > ::= <= 
 < log_sign > ::= <> 
 < arith_vyr > ::= < dod1 > 
-< arith_vyr > ::= < dod1 > + < arith_vyr > 
-< arith_vyr > ::= < dod1 > - < arith_vyr > 
+< arith_vyr > ::= < arith_vyr > + < dod > 
+< arith_vyr > ::= < arith_vyr > - < dod > 
 < dod1 > ::= < dod > 
 < dod > ::= < mnosh > 
 < dod > ::= < mnosh > * < dod > 

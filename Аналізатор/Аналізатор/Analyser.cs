@@ -188,13 +188,14 @@ namespace Аналізатор
             return false;
         }
 
-        public static bool Parse(string path, out List<Lexem> table, DataGridView outtable, DataGridView relationshiptable, List<GrammarLine> grammarlist,ref List<string> poliz) 
+        public static bool Parse(string path, out List<Lexem> table, out Dictionary<int,Parser2.keeper> states) 
         {
             LexemNumber = 0;
             NumberOfLines = 0;
             ConstCodeNumber = 0;
             IdCodeNumber = 0;
             string line;
+            states = new Dictionary<int, Parser2.keeper>();
             LexemTable = new List<Lexem>();
             IdTable = new List<Id>();
             ConstTable = new List<Const>();
@@ -285,20 +286,19 @@ namespace Аналізатор
                         continue;
                     }
                 }
-                //if (str.Peek() != -1)
-                //    LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, "¶", 27, 0));
+                if (str.Peek() != -1)
+                    LexemTable.Add(new Lexem(++LexemNumber, NumberOfLines, "¶", 27, 0));
             }
             str.Close();
             table = new List<Lexem>();
             if (key)
             {
                 table = LexemTable;
-                AscendParser parser = new AscendParser(LexemTable, relationshiptable, outtable, grammarlist);
+                Parser2.Parser parser = new Parser2.Parser(LexemTable);
                 try
                 {
-                    if (parser.Parse())
+                    if (parser.check(out states))
                     {
-                        poliz = parser.GetPoliz();
                         return true;
                     }
                 }

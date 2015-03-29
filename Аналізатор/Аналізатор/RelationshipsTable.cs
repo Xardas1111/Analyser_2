@@ -56,7 +56,7 @@ namespace Trance_4
             gramarList.Add(new GrammarLine("~oper", "~scann"));
             gramarList.Add(new GrammarLine("~oper", "~cycle"));
             gramarList.Add(new GrammarLine("~oper", "~if"));
-            gramarList.Add(new GrammarLine("~prysv", "id", "=", "~arith_vyr"));
+            gramarList.Add(new GrammarLine("~prysv", "id", "=", "~arith_vyr1"));
             gramarList.Add(new GrammarLine("~printt", "print", "(", "~arith_vyr1", ")"));
             gramarList.Add(new GrammarLine("~scann", "scan", "(", ")"));
             gramarList.Add(new GrammarLine("~scann", "scan", "(", "~idlist1", ")"));
@@ -69,7 +69,7 @@ namespace Trance_4
             gramarList.Add(new GrammarLine("~log_dod", "~log_mnosh1", "AND", "~log_dod"));
             gramarList.Add(new GrammarLine("~log_mnosh1", "~log_mnosh"));
             gramarList.Add(new GrammarLine("~log_dod", "~log_mnosh1"));
-            gramarList.Add(new GrammarLine("~log_mnosh", "~arith_vyr1", "~log_sign", "~arith_vyr"));
+            gramarList.Add(new GrammarLine("~log_mnosh", "~arith_vyr1", "~log_sign", "~arith_vyr1"));
             gramarList.Add(new GrammarLine("~log_mnosh", "NOT", "~log_mnosh"));
             gramarList.Add(new GrammarLine("~log_mnosh", "[", "~log_dod1", "]"));
             gramarList.Add(new GrammarLine("~arith_vyr1", "~arith_vyr"));
@@ -80,8 +80,8 @@ namespace Trance_4
             gramarList.Add(new GrammarLine("~log_sign", "<="));
             gramarList.Add(new GrammarLine("~log_sign", "<>"));
             gramarList.Add(new GrammarLine("~arith_vyr", "~dod1"));
-            gramarList.Add(new GrammarLine("~arith_vyr", "~dod1", "+", "~arith_vyr"));
-            gramarList.Add(new GrammarLine("~arith_vyr", "~dod1", "-", "~arith_vyr"));
+            gramarList.Add(new GrammarLine("~arith_vyr", "~arith_vyr", "+", "~dod"));
+            gramarList.Add(new GrammarLine("~arith_vyr", "~arith_vyr", "-", "~dod"));
             gramarList.Add(new GrammarLine("~dod1", "~dod"));
             gramarList.Add(new GrammarLine("~dod", "~mnosh"));
             gramarList.Add(new GrammarLine("~dod", "~mnosh", "*", "~dod"));

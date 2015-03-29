@@ -24,10 +24,10 @@ namespace Аналізатор
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            relForm = new RelationshipTableForm(RelationshipsTable.GetTable());
-            relForm.Show();
-            gf = new GramaticForm(RelationshipsTable.GetGramatic());
-            gf.Show();
+            //relForm = new RelationshipTableForm(RelationshipsTable.GetTable());
+            //relForm.Show();
+            //gf = new GramaticForm(RelationshipsTable.GetGramatic());
+            //gf.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,18 +70,12 @@ namespace Аналізатор
         private void button4_Click(object sender, EventArgs e)
         {
             dataGridView3.Rows.Clear();
-            List<string> poliz = new List<string>();
+            Dictionary<int, Parser2.keeper> states;
             List<Lexem> table = new List<Lexem>();
             File.WriteAllText("Temp.abc", richTextBox1.Text);
-            if (Analyser.Parse("Temp.abc", out table, dataGridView3, relForm.dataGridView1, RelationshipsTable.GetGramarList(), ref poliz))
+            if (Analyser.Parse("Temp.abc", out table, out states))
             {
-                string str = "";
-                for (int i = 0; i < poliz.Count; i++)
-                {
-                    str += poliz[i] + " ";
-                }
                 MessageBox.Show("All is correct", "Result", MessageBoxButtons.OK);
-                MessageBox.Show(str+Environment.NewLine+CalculatePoliz(poliz), "Poliz", MessageBoxButtons.OK);
             }
             dataGridView1.Rows.Clear();
             for (int i = 0; i < table.Count; i++)
@@ -140,15 +134,6 @@ namespace Аналізатор
                         i--;
                         break;
                     default:
-                        if (i == 0)
-                        {
-                            a1 = int.Parse(poliz[i]);
-                        }
-                        else 
-                        {
-                            a2 = a1;
-                            a1 = int.Parse(poliz[i]);
-                        }
                         i++;
                         break;
                 }

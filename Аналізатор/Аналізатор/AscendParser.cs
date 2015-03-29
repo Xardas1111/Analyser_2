@@ -105,7 +105,12 @@ namespace Аналізатор
             string str2 = "";
             for (int index = this.count; index < this.lexemtable.Count; ++index)
                 str2 = str2 + " " + this.lexemtable[index].LexName;
-            this.outtable.Rows.Add((object)str1, (object)relation, (object)str2);
+            string str3 = "";
+            for (int i = 0; i < Polizlist.Count; i++) 
+            {
+                str3 += Polizlist[i] + " ";
+            }
+                this.outtable.Rows.Add((object)str1, (object)relation, (object)str2, (object)str3);
         }
 
         private string GetGrammar(List<string> temp)
