@@ -10,7 +10,8 @@ namespace Аналізатор
     {
         List<Lexem> lexemtable;
         Dictionary<string, Operand> operands;
-        int count;
+        int ifcount;
+        int labelcount;
         public DijkstraMethod()
         {
             lexemtable = new List<Lexem>();
@@ -18,15 +19,20 @@ namespace Аналізатор
         }
         public DijkstraMethod(List<Lexem> lexemtable)
         {
-            count = 0;
+            ifcount = 0;
+            labelcount = 0;
             this.lexemtable = lexemtable;
             operands = new Dictionary<string, Operand>();
             operands.Add("{", new Operand("{", 0));
             operands.Add("[", new Operand("[", 0));
             operands.Add("(", new Operand("(", 0));
+            operands.Add("do", new Operand("do", 0));
+            operands.Add("if", new Operand("if", 0));
             operands.Add("]", new Operand("]", 1));
             operands.Add("}", new Operand("}", 1));
             operands.Add(")", new Operand(")", 1));
+            operands.Add("while", new Operand("while", 1));
+            operands.Add("print", new Operand("print", 2));
             operands.Add("=", new Operand("=", 2));
             operands.Add("OR", new Operand("OR", 3));
             operands.Add("AND", new Operand("AND", 4));
@@ -70,12 +76,26 @@ namespace Аналізатор
                 }
                 if ((lexemtable[i].Code == 22) || (lexemtable[i].Code == 24) || (lexemtable[i].Code == 28))
                 {
-                    stack.Push(operands[lexemtable[i].LexName]);
-                    continue;
+                    if ((lexemtable[i].Code == 22) && (ifcount != 0))
+                    {
+                        while (stack.Peek().OperandName != "if")
+                        {
+                            poliz.Add(stack.Pop().OperandName);
+                        }
+                        poliz.Add("m" + labelcount);
+                        poliz.Add("UPL");
+                        stack.Peek().AdditionalList.Add("m" + labelcount);
+                        continue;
+                    }
+                    else
+                    {
+                        stack.Push(operands[lexemtable[i].LexName]);
+                        continue;
+                    }
                 }
                 if (lexemtable[i].Code == 27)
                 {
-                    while (stack.Peek().OperandName != "{")
+                    while ((stack.Peek().OperandName != "{") && (stack.Peek().OperandName != "if") && (stack.Peek().OperandName != "do"))
                     {
                         poliz.Add(stack.Pop().OperandName);
                     }
@@ -83,12 +103,26 @@ namespace Аналізатор
                 }
                 if (lexemtable[i].Code == 23)
                 {
-                    while (stack.Peek().OperandName != "{")
+                    if (ifcount != 0)
                     {
-                        poliz.Add(stack.Pop().OperandName);
+                        while (stack.Peek().OperandName != "if")
+                        {
+                            poliz.Add(stack.Pop().OperandName);
+                        }
+                        poliz.Add(stack.Peek().AdditionalList[ifcount-1] + ":");
+                        stack.Pop();
+                        ifcount--;
+                        continue;
                     }
-                    stack.Pop();
-                    continue;
+                    else
+                    {
+                        while (stack.Peek().OperandName != "{")
+                        {
+                            poliz.Add(stack.Pop().OperandName);
+                        }
+                        stack.Pop();
+                        continue;
+                    }
                 }
                 if (lexemtable[i].Code == 25)
                 {
@@ -108,6 +142,32 @@ namespace Аналізатор
                     stack.Pop();
                     continue;
                 }
+                if (lexemtable[i].Code == 4) 
+                {
+                    i += 2;
+                    while (lexemtable[i].Code != 27) 
+                    {
+                        if (lexemtable[i].Code == 46)
+                        {
+                            poliz.Add(lexemtable[i].LexName);
+                            i++;
+                        }
+                        else 
+                        {
+                            poliz.Add("scan");
+                            i++;
+                        }
+                    }
+                    continue;
+                }
+                if (lexemtable[i].Code == 7) 
+                {
+                    ifcount++;
+                    labelcount++;
+                    stack.Push(operands[lexemtable[i].LexName]);
+                    continue;
+
+                }
                 while ((stack.Count != 0) && (stack.Peek().OperandPriority >= operands[lexemtable[i].LexName].OperandPriority))
                 {
                     poliz.Add(stack.Pop().OperandName);
@@ -122,10 +182,12 @@ namespace Аналізатор
     {
         public string OperandName;
         public int OperandPriority;
+        public List<string> AdditionalList;
         public Operand(string OperandName, int OperandPriority)
         {
             this.OperandName = OperandName;
             this.OperandPriority = OperandPriority;
+            AdditionalList = new List<string>();
         }
     }
 }
