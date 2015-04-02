@@ -9,48 +9,52 @@ namespace Аналізатор
     public class DijkstraMethod
     {
         List<Lexem> lexemtable;
-        Dictionary<string, Operand> operands;
+        Dictionary<string, PairedValue> operands;
         int ifcount;
-        int labelcount;
+        int iflabelcount;
+        int docount;
+        int dolabelcount;
         public DijkstraMethod()
         {
             lexemtable = new List<Lexem>();
-            operands = new Dictionary<string, Operand>();
+            operands = new Dictionary<string, PairedValue>();
         }
         public DijkstraMethod(List<Lexem> lexemtable)
         {
+            docount = 0;
             ifcount = 0;
-            labelcount = 0;
+            iflabelcount = 0;
+            dolabelcount = 1;
             this.lexemtable = lexemtable;
-            operands = new Dictionary<string, Operand>();
-            operands.Add("{", new Operand("{", 0));
-            operands.Add("[", new Operand("[", 0));
-            operands.Add("(", new Operand("(", 0));
-            operands.Add("do", new Operand("do", 0));
-            operands.Add("if", new Operand("if", 0));
-            operands.Add("]", new Operand("]", 1));
-            operands.Add("}", new Operand("}", 1));
-            operands.Add(")", new Operand(")", 1));
-            operands.Add("while", new Operand("while", 1));
-            operands.Add("print", new Operand("print", 2));
-            operands.Add("=", new Operand("=", 2));
-            operands.Add("OR", new Operand("OR", 3));
-            operands.Add("AND", new Operand("AND", 4));
-            operands.Add("NOT", new Operand("NOT", 5));
-            operands.Add(">", new Operand(">", 6));
-            operands.Add("<", new Operand("<", 6));
-            operands.Add(">=", new Operand(">=", 6));
-            operands.Add("<=", new Operand("<=", 6));
-            operands.Add("<>", new Operand("<>", 6));
-            operands.Add("==", new Operand("==", 6));
-            operands.Add("+", new Operand("+", 7));
-            operands.Add("-", new Operand("-", 7));
-            operands.Add("*", new Operand("*", 8));
-            operands.Add("/", new Operand("/", 8));
+            operands = new Dictionary<string, PairedValue>();
+            operands.Add("{", new PairedValue("{", 0));
+            operands.Add("[", new PairedValue("[", 0));
+            operands.Add("(", new PairedValue("(", 0));
+            operands.Add("do", new PairedValue("do", 0));
+            operands.Add("if", new PairedValue("if", 0));
+            operands.Add("]", new PairedValue("]", 1));
+            operands.Add("}", new PairedValue("}", 1));
+            operands.Add(")", new PairedValue(")", 1));
+            operands.Add("while", new PairedValue("while", 1));
+            operands.Add("print", new PairedValue("print", 2));
+            operands.Add("=", new PairedValue("=", 2));
+            operands.Add("OR", new PairedValue("OR", 3));
+            operands.Add("AND", new PairedValue("AND", 4));
+            operands.Add("NOT", new PairedValue("NOT", 5));
+            operands.Add(">", new PairedValue(">", 6));
+            operands.Add("<", new PairedValue("<", 6));
+            operands.Add(">=", new PairedValue(">=", 6));
+            operands.Add("<=", new PairedValue("<=", 6));
+            operands.Add("<>", new PairedValue("<>", 6));
+            operands.Add("==", new PairedValue("==", 6));
+            operands.Add("+", new PairedValue("+", 7));
+            operands.Add("-", new PairedValue("-", 7));
+            operands.Add("*", new PairedValue("*", 8));
+            operands.Add("/", new PairedValue("/", 8));
         }
         public List<string> CreatePoliz()
         {
-            Stack<Operand> stack = new Stack<Operand>();
+            Stack<PairedValue> stack = new Stack<PairedValue>();
             List<string> poliz = new List<string>();
             for (int i = 0; i < lexemtable.Count; i++)
             {
@@ -82,9 +86,9 @@ namespace Аналізатор
                         {
                             poliz.Add(stack.Pop().OperandName);
                         }
-                        poliz.Add("m" + labelcount);
+                        poliz.Add("m" + iflabelcount);
                         poliz.Add("UPL");
-                        stack.Peek().AdditionalList.Add("m" + labelcount);
+                        stack.Peek().AdditionalList.Add("m" + iflabelcount);
                         continue;
                     }
                     else
@@ -97,7 +101,26 @@ namespace Аналізатор
                 {
                     while ((stack.Peek().OperandName != "{") && (stack.Peek().OperandName != "if") && (stack.Peek().OperandName != "do"))
                     {
-                        poliz.Add(stack.Pop().OperandName);
+                        if (stack.Peek().OperandName == "while")
+                        {
+                            stack.Pop();
+                            poliz.Add("m" + (Convert.ToInt32(stack.Peek().AdditionalList[docount - 1].Substring(1, stack.Peek().AdditionalList[docount - 1].Length - 1)) + 1));
+                            poliz.Add("UPL");
+                            poliz.Add(stack.Peek().AdditionalList[docount - 1]);
+                            poliz.Add("BP");
+                            poliz.Add("m" + (Convert.ToInt32(stack.Peek().AdditionalList[docount - 1].Substring(1, stack.Peek().AdditionalList[docount - 1].Length - 1)) + 1) + ":");
+                            if (docount == 1) 
+                            {
+                                stack.Peek().AdditionalList.Clear();
+                            }
+                            stack.Pop();
+                            docount--;
+                            break;
+                        }
+                        else
+                        {
+                            poliz.Add(stack.Pop().OperandName);
+                        }
                     }
                     continue;
                 }
@@ -110,8 +133,13 @@ namespace Аналізатор
                             poliz.Add(stack.Pop().OperandName);
                         }
                         poliz.Add(stack.Peek().AdditionalList[ifcount-1] + ":");
+                        if (ifcount == 1)
+                        {
+                            stack.Peek().AdditionalList.Clear();
+                        }
                         stack.Pop();
                         ifcount--;
+                        
                         continue;
                     }
                     else
@@ -163,10 +191,18 @@ namespace Аналізатор
                 if (lexemtable[i].Code == 7) 
                 {
                     ifcount++;
-                    labelcount++;
+                    iflabelcount += 3;
                     stack.Push(operands[lexemtable[i].LexName]);
                     continue;
-
+                }
+                if (lexemtable[i].Code == 6)
+                {
+                    docount++;
+                    dolabelcount += 3;
+                    stack.Push(operands[lexemtable[i].LexName]);
+                    stack.Peek().AdditionalList.Add("m" + dolabelcount);
+                    poliz.Add("m" + dolabelcount + ":");
+                    continue;
                 }
                 while ((stack.Count != 0) && (stack.Peek().OperandPriority >= operands[lexemtable[i].LexName].OperandPriority))
                 {
@@ -178,12 +214,12 @@ namespace Аналізатор
         }
     }
 
-    public struct Operand
+    public struct PairedValue
     {
         public string OperandName;
         public int OperandPriority;
         public List<string> AdditionalList;
-        public Operand(string OperandName, int OperandPriority)
+        public PairedValue(string OperandName, int OperandPriority)
         {
             this.OperandName = OperandName;
             this.OperandPriority = OperandPriority;

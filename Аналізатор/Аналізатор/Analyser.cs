@@ -188,7 +188,7 @@ namespace Аналізатор
             return false;
         }
 
-        public static bool Parse(string path, out List<Lexem> table, out Dictionary<int,Parser2.keeper> states) 
+        public static bool Parse(string path, out List<Lexem> table, out Dictionary<int,Parser2.keeper> states, out List<Id> idtable) 
         {
             LexemNumber = 0;
             NumberOfLines = 0;
@@ -198,6 +198,7 @@ namespace Аналізатор
             states = new Dictionary<int, Parser2.keeper>();
             LexemTable = new List<Lexem>();
             IdTable = new List<Id>();
+            idtable = IdTable;
             ConstTable = new List<Const>();
             StreamReader str = new StreamReader(path);
             bool key = true;

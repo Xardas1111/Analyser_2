@@ -27,16 +27,18 @@ namespace Аналізатор
         }
     }
 
-    struct Id
+    public struct Id
     {
         public string IdName;
         public int IdCode;
         public string IdType;
+        public string Value;
         public Id(string IdName, int IdCode, string IdType)
         {
             this.IdName = IdName;
             this.IdCode = IdCode;
             this.IdType = IdType;
+            Value = "0";
         }
     }
 

@@ -55,8 +55,7 @@
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OutputText = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -120,6 +119,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.OutputText);
             this.tabPage1.Controls.Add(this.button5);
             this.tabPage1.Controls.Add(this.button4);
             this.tabPage1.Controls.Add(this.button3);
@@ -282,9 +282,7 @@
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
+            this.Column2});
             this.dataGridView3.Location = new System.Drawing.Point(7, 7);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(1033, 369);
@@ -292,23 +290,23 @@
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "Stack";
+            this.Column1.HeaderText = "Label";
             this.Column1.Name = "Column1";
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "Relationship";
+            this.Column2.HeaderText = "Position";
             this.Column2.Name = "Column2";
             // 
-            // Column3
+            // OutputText
             // 
-            this.Column3.HeaderText = "Input";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Poliz";
-            this.Column4.Name = "Column4";
+            this.OutputText.Location = new System.Drawing.Point(581, 136);
+            this.OutputText.Multiline = true;
+            this.OutputText.Name = "OutputText";
+            this.OutputText.ReadOnly = true;
+            this.OutputText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.OutputText.Size = new System.Drawing.Size(169, 210);
+            this.OutputText.TabIndex = 16;
             // 
             // Form1
             // 
@@ -362,8 +360,7 @@
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.TextBox OutputText;
 
     }
 }

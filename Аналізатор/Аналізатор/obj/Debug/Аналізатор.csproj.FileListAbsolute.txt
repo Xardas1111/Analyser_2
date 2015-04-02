@@ -21,3 +21,4 @@ C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналіза�
 C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.csproj.GenerateResource.Cache
 C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.exe
 C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\bin\Debug\Аналізатор.pdb
+C:\Users\Xardas\Documents\GitHub\Analyser_2\Аналізатор\Аналізатор\obj\Debug\Аналізатор.VariableEntering.resources
