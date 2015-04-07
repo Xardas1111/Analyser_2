@@ -66,6 +66,23 @@ namespace Аналізатор
                         a1 = Convert.ToString(GetValue(a1) / GetValue(a2), new CultureInfo("en-Us"));
                         stack.Push(a1);
                         break;
+                    case "AND":
+                        a2 = stack.Pop();
+                        a1 = stack.Pop();
+                        a1 = Convert.ToString(Convert.ToBoolean(a2) && Convert.ToBoolean(a1));
+                        stack.Push(a1);
+                        break;
+                    case "OR":
+                        a2 = stack.Pop();
+                        a1 = stack.Pop();
+                        a1 = Convert.ToString(Convert.ToBoolean(a2) || Convert.ToBoolean(a1));
+                        stack.Push(a1);
+                        break;
+                    case "NOT":
+                        a1 = stack.Pop();
+                        a1 = Convert.ToString(!Convert.ToBoolean(a1));
+                        stack.Push(a1);
+                        break;
                     case "=":
                         a2 = stack.Pop();
                         a1 = stack.Pop();
@@ -152,6 +169,14 @@ namespace Аналізатор
                         {
                             a1 = stack.Pop();
                             varmenu = new VariableEntering();
+                            for (int j = 0; j < idtable.Count; j++)
+                            {
+                                if (a1 == idtable[j].IdName)
+                                {
+                                    varmenu.SetName = a1;
+                                    break;
+                                }
+                            }
                         mark:
                             varmenu.ShowDialog();
                             for (int j = 0; j < idtable.Count; j++)
@@ -208,7 +233,7 @@ namespace Аналізатор
             {
                 Value = a;
             }
-            return Convert.ToDouble(Value, new CultureInfo("en-Us"));
+            return Convert.ToDouble(Value, new CultureInfo("en-US"));
         }
     }
 }

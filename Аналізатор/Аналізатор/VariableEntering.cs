@@ -13,6 +13,13 @@ namespace Аналізатор
     public partial class VariableEntering : Form
     {
         public string Value;
+        public string SetName 
+        {
+            set 
+            {
+                label1.Text = "Enter variable " + value;
+            }
+        }
         public VariableEntering()
         {
             InitializeComponent();
