@@ -48,14 +48,10 @@ namespace Parser2
             States.Add(10, new keeper(new List<int> { 25 }, new List<int> { 0 }, new List<int> { 0 }, 0, "closing bracket missing"));
             States.Add(11, new keeper(new List<int> { 24 }, new List<int> { 12 }, new List<int> { 0 }, 0, "opening bracket missing"));
             States.Add(12, new keeper(new List<int> { 46, 25 }, new List<int> { 13, 0 }, new List<int> { 0, 0 }, 0, "id or closing bracket expected"));
-            States.Add(13, new keeper(new List<int> { 25, 17 }, new List<int> { 0, 14 }, new List<int> { 0, 0 }, 0, "',' or closing bracket expected"));
-            States.Add(14, new keeper(new List<int> { 46 }, new List<int> { 13 }, new List<int> { 0 }, 0, "id expected"));
-            //States.Add(16, new keeper(new List<int> { 27 }, new List<int> { 17 }, new List<int> { 0 }, 0, "new line expected"));
+            States.Add(13, new keeper(new List<int> { 25, 17 }, new List<int> { 0, 12 }, new List<int> { 0, 0 }, 0, "',' or closing bracket expected"));
             States.Add(17, new keeper(new List<int> { 22 }, new List<int> { 19 }, new List<int> { 0 }, 0, "opening bracket expected"));
-            //States.Add(18, new keeper(new List<int> { 27 }, new List<int> { 19 }, new List<int> { 0 }, 0, "new line expected"));
             States.Add(19, new keeper(new List<int> { 23 }, new List<int> { 0 }, new List<int> { 0 }, 20, 5));
             States.Add(20, new keeper(new List<int> { 27 }, new List<int> { 19 }, new List<int> { 0 }, 0, "new line expected"));
-            //States.Add(21, new keeper(new List<int> { 27 }, new List<int> { 22 }, new List<int> { 0 }, 0, "new line expected"));
             States.Add(22, new keeper(new List<int> { 5 }, new List<int> { 31 }, new List<int> { 25 }, 23, 5));
             States.Add(23, new keeper(new List<int> { 27 }, new List<int> { 22 }, new List<int> { 0 }, 0, "new line expected"));
             States.Add(25, new keeper(new List<int> { 0 }, new List<int> { 0 }, new List<int> { 0 }, 0, 0));

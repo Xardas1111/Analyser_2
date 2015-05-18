@@ -9,19 +9,26 @@ using System.Threading;
 
 namespace Аналізатор
 {
+    //
+    //         ***************************************
+    //               Реалізація виконання поліз   
+    //         ***************************************
+    //
     public class Interpretator
     {
-        TextBox textbox;
-        List<string> poliz;
-        List<Id> idtable;
-        List<PairedValue> labeltable;
-        VariableEntering varmenu;
+        TextBox textbox;//Текстове поле для виведення
+        List<string> poliz;//Поліз для виконання
+        List<Id> idtable;//Таблиця ідентифікаторів
+        List<PairedValue> labeltable;//Таблиця міток
+        VariableEntering varmenu;//Вікно для введення змінних
+        //Конструктор за замовчуванням
         public Interpretator()
         {
             poliz = new List<string>();
             idtable = new List<Id>();
             labeltable = new List<PairedValue>();
         }
+        //Конструктор ініціалізації полів
         public Interpretator(List<string> poliz, List<Id> idtable, List<PairedValue> labeltable, TextBox textbox)
         {
             this.labeltable = labeltable;
@@ -29,33 +36,38 @@ namespace Аналізатор
             this.idtable = idtable;
             this.textbox = textbox;
         }
+        //
+        //        ***************************************
+        //        Інтерпретування поліза і його виконання  
+        //        ***************************************
+        //
         public void Interprate()
         {
-            Stack<string> stack = new Stack<string>();
-            string a1 = "", a2 = "";
+            Stack<string> stack = new Stack<string>();//Робочий стек
+            string a1 = "", a2 = "";//Робочі змінні для обчислень
             for (int i = 0; i < poliz.Count; i++)
             {
                 switch (poliz[i])
                 {
-                    case "+":
+                    case "+"://Додавання
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         a1 = Convert.ToString(GetValue(a1) + GetValue(a2), new CultureInfo("en-Us"));
                         stack.Push(a1);
                         break;
-                    case "-":
+                    case "-"://Віднімання
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         a1 = Convert.ToString(GetValue(a1) - GetValue(a2), new CultureInfo("en-Us"));
                         stack.Push(a1);
                         break;
-                    case "*":
+                    case "*"://Множення
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         a1 = Convert.ToString(GetValue(a1) * GetValue(a2), new CultureInfo("en-Us"));
                         stack.Push(a1);
                         break;
-                    case "/":
+                    case "/"://Ділення
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         if (GetValue(a2) == 0)
@@ -66,24 +78,24 @@ namespace Аналізатор
                         a1 = Convert.ToString(GetValue(a1) / GetValue(a2), new CultureInfo("en-Us"));
                         stack.Push(a1);
                         break;
-                    case "AND":
+                    case "AND"://Логічне І
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         a1 = Convert.ToString(Convert.ToBoolean(a2) && Convert.ToBoolean(a1));
                         stack.Push(a1);
                         break;
-                    case "OR":
+                    case "OR"://Логічне АБО
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         a1 = Convert.ToString(Convert.ToBoolean(a2) || Convert.ToBoolean(a1));
                         stack.Push(a1);
                         break;
-                    case "NOT":
+                    case "NOT"://Логічне НІ
                         a1 = stack.Pop();
                         a1 = Convert.ToString(!Convert.ToBoolean(a1));
                         stack.Push(a1);
                         break;
-                    case "=":
+                    case "="://Присвоєння значення змінній
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         for (int j = 0; j < idtable.Count; j++)
@@ -104,41 +116,41 @@ namespace Аналізатор
                             }
                         }
                         break;
-                    case "print":
+                    case "print"://Виведення на екран арифметичного виразу
                         a1 = stack.Pop();
                         textbox.Text += Convert.ToString(GetValue(a1), new CultureInfo("en-US")) + Environment.NewLine;
                         break;
-                    case ">":
+                    case ">"://Знак більше
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) > GetValue(a2)).ToString());
                         break;
-                    case ">=":
+                    case ">="://Знак більше-дорівнює
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) >= GetValue(a2)).ToString());
                         break;
-                    case "<=":
+                    case "<="://Знак меньше-дорівнює
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) <= GetValue(a2)).ToString());
                         break;
-                    case "<":
+                    case "<"://Знак меньше
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) < GetValue(a2)).ToString());
                         break;
-                    case "==":
+                    case "=="://Знак дорівнює
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) == GetValue(a2)).ToString());
                         break;
-                    case "<>":
+                    case "<>"://Знак недовірнює
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         stack.Push((GetValue(a1) != GetValue(a2)).ToString());
                         break;
-                    case "UPL":
+                    case "UPL"://Перехід на мітку по похибці
                         a2 = stack.Pop();
                         a1 = stack.Pop();
                         if (!Convert.ToBoolean(a1))
@@ -153,7 +165,7 @@ namespace Аналізатор
                             }
                         }
                         break;
-                    case "BP":
+                    case "BP"://Безумовний перехід на мітку
                         a1 = stack.Pop();
                         for (int j = 0; j < labeltable.Count; j++)
                         {
@@ -164,7 +176,7 @@ namespace Аналізатор
                             }
                         }
                         break;
-                    case "scan":
+                    case "scan"://Введення значення змінної
                         if (stack.Count != 0)
                         {
                             a1 = stack.Pop();
@@ -215,9 +227,14 @@ namespace Аналізатор
                 }
             }
         }
+        //
+        //       ***********************************************
+        //       Метод повернення значення(змінної чи константи)  
+        //       ***********************************************
+        //
         double GetValue(string a)
         {
-            string Value = "";
+            string Value = "";//Повертання значення
             if (!char.IsDigit(a[0]) && a[0] != '-')
             {
                 for (int i = 0; i < idtable.Count; i++)

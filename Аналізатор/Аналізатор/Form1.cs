@@ -17,6 +17,8 @@ namespace Аналізатор
         string path;
         RelationshipTableForm relForm;
         GramaticForm gf;
+        string[] LEXEMS = { "int", "real", "print", "scan", "while", "do", "if", "=", "<>", "<=", ">=", "<"
+        , ">", "==", "AND", "OR", ",", "+", "-", "*", "/", "{", "}", "(", ")", "NOT", "¶", "[", "]" };
         public Form1()
         {
             InitializeComponent();
@@ -70,11 +72,10 @@ namespace Аналізатор
         private void button4_Click(object sender, EventArgs e)
         {
             List<Id> idtable = new List<Id>();
-            dataGridView3.Rows.Clear();
             Dictionary<int, Parser2.keeper> states;
             List<Lexem> table = new List<Lexem>();
             File.WriteAllText("Temp.abc", richTextBox1.Text);
-            if (Analyser.Parse("Temp.abc", out table, out states , out idtable))
+            if (Analyser.Parse("Temp.abc", out table, out states, out idtable))
             {
                 MessageBox.Show("All is correct", "Result", MessageBoxButtons.OK);
                 dataGridView1.Rows.Clear();
@@ -88,7 +89,24 @@ namespace Аналізатор
                 {
                     for (int j = 0; j < pair.Value.labels.Count; j++)
                     {
-                        dataGridView2.Rows.Add(pair.Key, pair.Value.labels[j], pair.Value.nextstate[j], pair.Value.stack[j]);
+                        string value = "";
+                        for (int k = 1; k <= LEXEMS.Length; k++)
+                        {
+                            if (pair.Value.labels[j] == k)
+                            {
+                                value = LEXEMS[k - 1];
+                                break;
+                            }
+                        }
+                        if (pair.Value.labels[j] == 46)
+                        {
+                            value = "id";
+                        }
+                        if (pair.Value.labels[j] == 47)
+                        {
+                            value = "const";
+                        }
+                        dataGridView2.Rows.Add(pair.Key, value, pair.Value.nextstate[j], pair.Value.stack[j]);
                     }
                 }
                 DijkstraMethod method = new DijkstraMethod(table);
@@ -99,7 +117,6 @@ namespace Аналізатор
                     if ((poliz[i][0] == 'm') && (poliz[i][poliz[i].Length - 1] == ':'))
                     {
                         labeltable.Add(new PairedValue(poliz[i].Substring(0, poliz[i].Length - 1), i));
-                        dataGridView3.Rows.Add(poliz[i].Substring(0, poliz[i].Length - 1), i);
                     }
                 }
                 OutputText.Text = "";
@@ -107,7 +124,7 @@ namespace Аналізатор
                 Interpretator interpretator = new Interpretator(poliz, idtable, labeltable, OutputText);
                 interpretator.Interprate();
             }
-            
+
         }
         private string CalculatePoliz(List<string> poliz)
         {
@@ -163,6 +180,11 @@ namespace Аналізатор
                 }
             }
             return poliz[0];
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
